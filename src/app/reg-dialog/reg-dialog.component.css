@@ -1,0 +1,18 @@
+.reg-inputs{
+    display: flex;
+    flex-direction: column;
+    font-size: medium;
+    font-family: var(--default-font-light);
+}
+
+.reg-inputs > input{
+    font-size: x-large;
+    height: 2em;
+    width: 70%;
+    margin-top: 16px;
+    padding: 10px;
+}
+
+.themeBtn {
+    background-color: var(--secondary-dark);
+}

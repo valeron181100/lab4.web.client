@@ -1,0 +1,20 @@
+<div class="authContent">
+    <p-toast [style]="{marginTop: '80px'}"></p-toast>
+    <span id="logInLabel">Вход</span>
+    <br><br><br>
+    <div class="log-inputs">
+        <h3>Логин:</h3>
+        <input id="username" type="text" [(ngModel)]="username" pInputText>
+        <br>
+        <h3>Пароль:</h3>
+        <input type="password" [(ngModel)]="password" pPassword/>
+        <br>
+        <button type="button" class="themeBtn" label="Готово" (click)="onLoginClick($event)" [disabled]="(username === '') || (password === '') || (repeatedPassword === '')" pButton></button>
+    </div>
+    <br>
+    <span style="text-align: center; margin-bottom: 2rem;">
+        Нет учётной записи? Просто необходимо
+        <span class="linkComp" (click)="show()">Зарегистрироваться</span>
+    </span>
+    
+</div>

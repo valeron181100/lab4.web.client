@@ -1,0 +1,26 @@
+.historyContent{
+    display: flex;
+    align-items: center;
+    justify-content: top;
+    flex-direction: column;
+    height: 100vh;  
+    font-family: var(--default-font);
+}
+
+.empty-history {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2%;
+}
+
+.empty-history span{
+    display: block;
+    font-size: 30px;
+    font-family: var(--default-font);
+}
+
+.empty-history img{
+    width: 15vh;
+}

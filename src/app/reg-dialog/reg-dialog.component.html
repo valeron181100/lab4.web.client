@@ -1,0 +1,15 @@
+<div class="reg-inputs">
+    <h3>Логин:</h3>
+    <input id="username" [(ngModel)]="username" (ngModelChange)="onLoginInput($event)" type="text" pInputText>
+    <p-message *ngIf="isUserNameExists" severity="warn" text="Такое имя пользователя уже существует"></p-message>
+    <br>
+    <h3>Пароль:</h3>
+    <input type="password" [(ngModel)]="password" pPassword/>
+    <br>
+    <h3>Повторите пароль:</h3>
+    <input type="password" [(ngModel)]="repeatedPassword" pInputText/>
+    <p-message *ngIf="password != repeatedPassword" severity="warn" text="Пароли не совпадают"></p-message>
+    <br>
+    <button pButton type="button" [disabled]="isUserNameExists || (password != repeatedPassword) || 
+    (username === '') || (password === '') || (repeatedPassword === '')" class="themeBtn" label="Готово" (click)="onReg($event)"></button>
+</div>

@@ -1,0 +1,25 @@
+<div class="historyContent">
+    <p-table [value]="resultPoints" [scrollable]="true" scrollHeight="100vh">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>X</th>
+                <th>Y</th>
+                <th>R</th>
+                <th>Попадание</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-point>
+            <tr>
+                <td>{{point.x}}</td>
+                <td>{{point.y}}</td>
+                <td>{{point.r}}</td>
+                <td>{{point.entered}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <div *ngIf="this.resultPoints.length == 0" class="empty-history">
+        <img src="../../assets/images/history-big.png" alt="Empty history">
+        <span>Здесь пока ничего нет(</span>
+    </div>
+</div>

@@ -1,1 +1,25 @@
-/* You can add global styles to this file, and also import other style files */
+:root{
+    --sidePanelWidth: 20%;
+    --primary-color: #1e88e5;
+    --primary-light: #6ab7ff;
+    --primary-dark: #005cb2;
+
+    --secondary-color: #4fc3f7    ;
+    --secondary-light: #a6d8e7;
+    --secondary-dark: #0093c4;
+
+    --text-on-primary: white;
+    --text-on-secondary: white;
+
+    --default-font: 'Product Sans Regular', sans-serif;
+    --default-font-light: 'Product Sans Light Regular', sans-serif;
+}   
+
+body{
+    overflow-x: hidden;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}

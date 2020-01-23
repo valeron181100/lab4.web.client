@@ -1,0 +1,93 @@
+#homeContent{
+    display: flex;
+    height: 100vh;
+}
+
+#leftSide{
+    width: 50vw;
+    display: flex;
+    align-items: right;
+    justify-content: top;
+    flex-direction: column;
+    padding: 2rem;
+    font-size: x-large;
+    font-family: var(--default-font-light);
+    overflow-y: auto;
+}
+
+#leftSide > input{
+    font-size: x-large;
+    height: 2em;
+    margin-top: 16px;
+    padding: 10px;
+}
+
+#rightSide{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 2%;
+    background: var(--secondary-light);
+    width: 50vw;
+    height: 100vh;
+}
+
+#graph{
+    width: calc(70vmin / 1.5 );
+    height: calc(70vmin / 1.5 );
+    border-radius: 30px;
+    /*box-shadow: -1px 10px 44px -6px black;*/
+
+}
+
+#graph canvas, #graph img{
+    width: calc(70vmin / 1.5 );
+    height: calc(70vmin / 1.5 );
+    border-radius: 30px;
+}
+
+#graph canvas{
+    position: absolute;
+    box-shadow: -1px 10px 44px -6px black;
+}
+
+#task-chart{
+    cursor: pointer;
+}
+
+.clearButton{
+    margin-top: 5%;
+}
+
+@media only screen and (max-width: 870px){
+    #homeContent{
+        flex-direction: column-reverse;
+    }
+    #leftSide{
+        overflow-y: auto;
+        width: 100vw;
+        font-size: medium;
+    }
+
+    #rightSide{
+        width: 100vw;
+        height: 60vh;
+    }
+
+    #leftSide > input{
+        font-size: medium;
+    }
+
+    .input-valid-block{
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
+}
+
+@media only screen and (max-height: 550px) and (max-width: 870px){
+    #graph canvas{
+        box-shadow: none;
+    }
+}

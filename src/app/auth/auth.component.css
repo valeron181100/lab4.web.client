@@ -1,0 +1,62 @@
+.authContent{
+    display: flex;
+    align-items: center;
+    justify-content: top;
+    flex-direction: column;
+    padding-top: 5%;
+    height: 100vh;
+    font-family: var(--default-font);
+}
+
+#logInLabel{
+    font-size: 6rem;
+    display: block;
+}
+
+.log-inputs{
+    display: flex;
+    flex-direction: column;
+    font-size: x-large;
+    font-family: var(--default-font-light);
+}
+
+.log-inputs > input{
+    font-size: x-large;
+    height: 2em;
+    width: 20vw;
+    margin-top: 16px;
+    padding: 10px;
+}
+
+.themeBtn {
+    background-color: var(--secondary-dark);
+}
+
+.themeBtn:hover{
+    background-color: var(--secondary-color) !important;
+}
+
+.linkComp{
+    color: blue;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 870px){
+    .log-inputs > input{
+        font-size: large;
+        width: 70vw;
+    }
+    
+    #logInLabel{
+        font-size: 4rem;
+    }
+
+    .log-inputs{
+        display: flex;
+        flex-direction: column;
+        font-size: large;
+        font-family: var(--default-font-light);
+    }
+}
+
+ 

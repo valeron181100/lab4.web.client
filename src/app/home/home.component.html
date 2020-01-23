@@ -1,0 +1,46 @@
+<div id="homeContent">
+    <p-toast [style]="{marginTop: '80px'}"></p-toast>
+    <form [formGroup]="userform" id="leftSide" (ngSubmit)="onSubmit()">
+    
+        <h3>Выберите X:</h3>
+        <p-radioButton label="-3" formControlName="xradio-group" value="-3" [(ngModel)]="xCoord"></p-radioButton>
+        <p-radioButton label="-2" formControlName="xradio-group" value="-2" [(ngModel)]="xCoord"></p-radioButton>
+        <p-radioButton label="-1" formControlName="xradio-group" value="-1" [(ngModel)]="xCoord"></p-radioButton>
+        <p-radioButton label="0" formControlName="xradio-group" value="0" [(ngModel)]="xCoord"></p-radioButton>
+        <p-radioButton label="1" formControlName="xradio-group" value="1" [(ngModel)]="xCoord"></p-radioButton>
+        <p-radioButton label="2" formControlName="xradio-group" value="2" [(ngModel)]="xCoord"></p-radioButton>
+        <p-radioButton label="3" formControlName="xradio-group" value="3" [(ngModel)]="xCoord"></p-radioButton>
+        <p-radioButton label="4" formControlName="xradio-group" value="4" [(ngModel)]="xCoord"></p-radioButton>
+        <p-radioButton label="5" formControlName="xradio-group" value="5" [(ngModel)]="xCoord"></p-radioButton>
+        <br>
+        <h3>Введите Y:</h3>
+        <div class="input-valid-block">
+            <input type="text" formControlName="yinput" placeholder="(-5 .. 3)"
+            [(ngModel)]="yCoord"
+            maxlength="7"
+            pInputText>
+            <p-message *ngIf="!userform.controls['yinput'].valid && userform.controls['yinput'].dirty" severity="error" text="Некорректный ввод или поле пустое"></p-message>
+        </div>
+        <br>
+        <h3>Выберите R:</h3>
+        <p-radioButton (click)="redrawAxises(); changeGraph();" label="-3" formControlName="rradio-group" value="-3" [(ngModel)]="rCoord"></p-radioButton>
+        <p-radioButton (click)="redrawAxises(); changeGraph();" label="-2" formControlName="rradio-group" value="-2" [(ngModel)]="rCoord"></p-radioButton>
+        <p-radioButton (click)="redrawAxises(); changeGraph();" label="-1" formControlName="rradio-group" value="-1" [(ngModel)]="rCoord"></p-radioButton>
+        <p-radioButton (click)="redrawAxises(); changeGraph();" label="0" formControlName="rradio-group" value="0" [(ngModel)]="rCoord"></p-radioButton>
+        <p-radioButton (click)="redrawAxises(); changeGraph();" label="1" formControlName="rradio-group" value="1" [(ngModel)]="rCoord"></p-radioButton>
+        <p-radioButton (click)="redrawAxises(); changeGraph();" label="2" formControlName="rradio-group" value="2" [(ngModel)]="rCoord"></p-radioButton>
+        <p-radioButton (click)="redrawAxises(); changeGraph();" label="3" formControlName="rradio-group" value="3" [(ngModel)]="rCoord"></p-radioButton>
+        <p-radioButton (click)="redrawAxises(); changeGraph();" label="4" formControlName="rradio-group" value="4" [(ngModel)]="rCoord"></p-radioButton>
+        <p-radioButton (click)="redrawAxises(); changeGraph();" label="5" formControlName="rradio-group" value="5" [(ngModel)]="rCoord"></p-radioButton>
+        <br>
+        <button type="button" label="Отправить" (click)="onSubmitButtonClick()" [disabled]='!userform.valid' pButton></button>
+    </form>
+    <div id="rightSide">
+        <div id="graph">
+            <canvas id="task-chart" (click)="click($event)"></canvas>
+            <img id="task-graph" src="../../assets/images/graph-positive-r.png"/>
+        </div>
+        <button type="button" class="clearButton" label="Очистить" (click)="clearHistory()" pButton></button>
+        
+    </div>
+</div>
