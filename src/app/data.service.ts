@@ -14,41 +14,28 @@ export class DataService {
 
     this.getUserIdObservable().subscribe((token: string)=>{
       if(this.isLoggedIn.value && token !== ''){
-        document.cookie += 'userId=' + token + ';';
+        // document.cookie += 'userId=' + token + ';';
+        console.log('DATA-SERVICE: userId was added to cookies');
       }
     });
   }
 
   clearCookies(): void{
     let cookies = document.cookie.split(";");
-
     for (let i = 0; i < cookies.length; i++) {
       let cookie = cookies[i];
       let eqPos = cookie.indexOf("=");
       let name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
       document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     }
+    console.log('DATA-SERVICE: cookies cleared');
   }
 
-  getUserIdFromCookies(): string{
-    let result = undefined;
-    document.cookie.split(';').forEach(p=>{
-      let pair = p.split('=');
-      
-      if(pair[0].trim() === 'userId'){
-        result = pair[1];
-      }
-    });
-    return result;
-  }
 
   exit(){
     this.clearCookies();
     this.setLoggedIn(false);
-  }
-
-  isUserIdCached(): boolean{
-    return this.getUserIdFromCookies() !== undefined;
+    console.log('DATA-SERVICE: loggedIn was setted to false');
   }
 
   turnOnSpinner(){
@@ -64,7 +51,7 @@ export class DataService {
   }
 
   setLoggedIn(isLoggedIn: boolean){
-      console.log('settingVal');
+    console.log('DATA-SERVICE: some component setted isLoggedIn variable to ' + isLoggedIn);
       this.isLoggedIn.next(isLoggedIn);
   }
 

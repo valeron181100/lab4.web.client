@@ -1,6 +1,6 @@
 <div id="homeContent">
     <p-toast [style]="{marginTop: '80px'}"></p-toast>
-    <form [formGroup]="userform" id="leftSide" (ngSubmit)="onSubmit()">
+    <form [formGroup]="userform" id="leftSide">
     
         <h3>Выберите X:</h3>
         <p-radioButton label="-3" formControlName="xradio-group" value="-3" [(ngModel)]="xCoord"></p-radioButton>
@@ -38,9 +38,8 @@
     <div id="rightSide">
         <div id="graph">
             <canvas id="task-chart" (click)="click($event)"></canvas>
-            <img id="task-graph" src="../../assets/images/graph-positive-r.png"/>
+            <img id="task-graph" src="./assets/images/graph-positive-r.png"/>
         </div>
-        <button type="button" class="clearButton" label="Очистить" (click)="clearHistory()" pButton></button>
-        
+        <button type="button" class="clearButton" label="Очистить" (click)="clearHistory()" pButton></button>        
     </div>
 </div>

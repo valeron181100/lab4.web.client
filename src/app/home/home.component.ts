@@ -3,12 +3,13 @@ import { MessageService } from 'primeng/api';
 import { FormGroup, FormBuilder, FormControl, Validators, ControlContainer, FormControlDirective } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DataService } from '../data.service';
+import { CookieService } from "ngx-cookie-service";
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
-  providers: [MessageService, FormControlDirective]
+  providers: [MessageService, FormControlDirective, CookieService]
 })
 export class HomeComponent implements OnInit {
   
@@ -85,9 +86,9 @@ export class HomeComponent implements OnInit {
   changeGraph(){
     let graphImage = $("#task-graph")[0];
     if(this.rCoord >= 0){
-      graphImage.src = "../../assets/images/graph-positive-r.png";
+      graphImage.src = "./assets/images/graph-positive-r.png";
     }else{
-      graphImage.src = "../../assets/images/graph-negative-r.png";
+      graphImage.src = "./assets/images/graph-negative-r.png";
     }
   }
 
@@ -236,29 +237,16 @@ export class HomeComponent implements OnInit {
     let canvas = event.target;
     let originalX = event.pageX - canvas.offsetLeft;
     let originalY = event.pageY - canvas.offsetTop;
-
-    console.log('x = ' + originalX + '; y = ' + originalY);
-
-    console.log('canvasWidth = ' + this.chartWidth);
-
-    console.log('R = ' + this.R);
     let compY = String(this.toComputingY(originalY, this.R)).substring(0, 10);
     let compX = String(this.toComputingX(originalX, this.R)).substring(0, 10);
 
-    console.log('compX = ' + compX + '; compY = ' + compY);
-
     let roundedX = parseFloat(compX);
     let roundedY = parseFloat(compY).toFixed(4);
-    
-    console.log('roundedX = ' + roundedX + '; roundedY = ' + roundedY);
 
     if(+roundedY < 3 && +roundedY > -5 && roundedX <= 5 && roundedX >= -3){
         this.xCoordGraph = roundedX;
         this.yCoord = String(+roundedY);
         // this.getR();
-        console.log('y = ' + this.yCoord);
-        console.log('x = ' + this.xCoordGraph);
-        console.log('r = ' + this.rCoord);
         // clickSubmitButton();
         this.http.post(
           this.dataService.serverRootUrl + "history/c",
@@ -292,7 +280,7 @@ export class HomeComponent implements OnInit {
   }
 
   redraw(){
-    console.log('redrawing');
+    console.log('HOME-COMPONENT: redrawing points');
     this.http.get(
       this.dataService.serverRootUrl + "history/" + this.dataService.getUserId()       
     ).subscribe(

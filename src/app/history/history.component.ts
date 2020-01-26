@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DataService } from '../data.service';
 import { MessageService } from 'primeng/api';
+import { CookieService } from "ngx-cookie-service";
 
 @Component({
   selector: 'app-history',
   templateUrl: './history.component.html',
   styleUrls: ['./history.component.css'],
-  providers: [MessageService]
+  providers: [MessageService, CookieService]
 })
 export class HistoryComponent implements OnInit {
   resultPoints: ResultPoint[];

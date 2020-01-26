@@ -5,13 +5,14 @@ import { MessageService } from 'primeng/api';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DataService } from "../data.service";
 import { Router } from '@angular/router';
+import { CookieService } from "ngx-cookie-service";
 
 
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.css'],
-  providers: [DialogService, MessageService]
+  providers: [DialogService, MessageService, CookieService]
 })
 export class AuthComponent implements OnInit {
   
@@ -20,9 +21,12 @@ export class AuthComponent implements OnInit {
   password: string = "";
 
   constructor(public dialogService: DialogService, private messageService: MessageService, public http: HttpClient,
-              private dataService: DataService, private router: Router) {}
+              private dataService: DataService, private router: Router, private cookieService: CookieService) {}
 
   ngOnInit() {
+    if (this.dataService.getIsLoggedInBoolean()) {
+      this.router.navigate(['home']);
+    }
   }
 
 
@@ -41,9 +45,9 @@ export class AuthComponent implements OnInit {
         }
       }
       else{
-        console.log("logged in");
         this.dataService.setLoggedIn(true);
         this.dataService.setUserId(json.userId);
+        this.cookieService.set('userId', json.userId);
         this.makeSuccessToast('Вы успешно авторизировались', 'Сейчас вы будете перенаправлены на вкладку "Панель"')
         setTimeout(()=>{
           this.router.navigate(['home']);

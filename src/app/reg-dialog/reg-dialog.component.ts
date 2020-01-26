@@ -3,12 +3,13 @@ import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { HttpClient } from '@angular/common/http';
 import { DataService } from '../data.service';
 import { MessageService } from 'primeng/api';
+import { CookieService } from "ngx-cookie-service";
 
 @Component({
   selector: 'app-reg-dialog',
   templateUrl: './reg-dialog.component.html',
   styleUrls: ['./reg-dialog.component.css'],
-  providers: [MessageService]
+  providers: [MessageService, CookieService]
 })
 export class RegDialogComponent implements OnInit {
   clientSidePasswordPart: string = "AgwFC$";
@@ -31,7 +32,6 @@ export class RegDialogComponent implements OnInit {
     {username: this.username, password: this.clientSidePasswordPart + this.password})
     .subscribe((data: string) => {
       let json = <any>data;
-      console.log(JSON.stringify(json));
       this.ref.close(json.authStatus);
     }, err => {
       console.error(err);
@@ -42,10 +42,8 @@ export class RegDialogComponent implements OnInit {
   }
 
   onLoginInput(event){
-    console.log('sending');
     this.http.get(this.dataService.serverRootUrl + "auth/exists?username="+this.username)
     .subscribe((data: string) => {
-      console.log("response data: " + (<any>data).response);
       this.isUserNameExists = (<any>data).response;
     });
   }
