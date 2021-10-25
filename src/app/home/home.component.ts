@@ -36,6 +36,7 @@ export class HomeComponent implements OnInit {
   chartWidth: number = 220;
   chartHeight: number = this.chartWidth;
   rCoefficient: number = 0.4;
+  fillNumbers: Array<number> = Array(9).fill(1);
 
   constructor(private messageService: MessageService,
       private networkService: NetworkService, private fb: FormBuilder, private http: HttpClient, private dataService: DataService) { 
