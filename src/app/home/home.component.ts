@@ -103,10 +103,7 @@ export class HomeComponent implements OnInit {
     canvas.height = canvas.width;
     this.chartWidth = canvas.offsetWidth;
     this.chartHeight = this.chartWidth;
-    // chartWidth = canvas.width;
     this.draw();
-    //redraw();
-    // $("#task-chart").bind("click", this.click);
 
     window.onresize = (event)=>{
         canvas.width = canvas.offsetWidth;
@@ -121,7 +118,6 @@ export class HomeComponent implements OnInit {
     let canvas = $("#task-chart")[0];
     this.drawAxises(canvas);
     this.drawAxisesSigns(canvas);
-    // let R = 5;
     this.drawPointsSigns(canvas, this.rCoord);
   }
 
@@ -243,8 +239,6 @@ export class HomeComponent implements OnInit {
     if(+roundedY < 3 && +roundedY > -5 && roundedX <= 5 && roundedX >= -3){
         this.xCoordGraph = roundedX;
         this.yCoord = String(+roundedY);
-        // this.getR();
-        // clickSubmitButton();
         this.http.post(
           this.dataService.serverRootUrl + "history/c",
           {headers: new HttpHeaders({ timeout: `${5000}` }), userId: this.dataService.getUserId(), r: this.rCoord, x: this.xCoordGraph, y: this.yCoord}          
@@ -264,9 +258,6 @@ export class HomeComponent implements OnInit {
     } else{
         this.makeErrorToast("Неверные данные!");
     }
-
-    // drawPoint($('#task-chart')[0], originalX, originalY, 'black');
-    //document.getElementById('canvas-form:canvas-form-button').click();
   }
 
   redrawAxises(){

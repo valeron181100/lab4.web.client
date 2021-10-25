@@ -83,11 +83,9 @@ export class AppComponent {
     });
 
     this.dataService.getSpinnerTurnedOnObservable().subscribe(spinnerTurnedOn => this.spinnerTurnedOn = spinnerTurnedOn);
-    // if(this.dataService.isUserIdCached()){
     if(this.cookieService.check('userId')){
       let urlArr = location.href.split('/');
       this.dataService.setLoggedIn(true);
-      // this.dataService.setUserId(this.dataService.getUserIdFromCookies());
       this.dataService.setUserId(this.cookieService.get('userId'));
       let requestUrl = urlArr.pop();
       console.log('APP-COMPONENT: requestUrl = ' + requestUrl);

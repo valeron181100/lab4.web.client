@@ -14,7 +14,6 @@ export class DataService {
 
     this.getUserIdObservable().subscribe((token: string)=>{
       if(this.isLoggedIn.value && token !== ''){
-        // document.cookie += 'userId=' + token + ';';
         console.log('DATA-SERVICE: userId was added to cookies');
       }
     });
