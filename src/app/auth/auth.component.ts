@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DataService } from "../data.service";
 import { Router } from '@angular/router';
 import { CookieService } from "ngx-cookie-service";
+import { NetworkService } from '../network.service';
 
 
 @Component({
@@ -21,6 +22,7 @@ export class AuthComponent implements OnInit {
   password: string = "";
 
   constructor(public dialogService: DialogService, private messageService: MessageService, public http: HttpClient,
+              private networkService: NetworkService,
               private dataService: DataService, private router: Router, private cookieService: CookieService) {}
 
   ngOnInit() {
@@ -32,8 +34,7 @@ export class AuthComponent implements OnInit {
 
   onLoginClick(event){
     this.dataService.turnOnSpinner();
-    this.http.post(this.dataService.serverRootUrl + "auth/login",
-    {headers: new HttpHeaders({ timeout: `${5000}` }), username: this.username, password: this.clientSidePasswordPart + this.password})
+    this.networkService.login(this.username, this.clientSidePasswordPart + this.password)
     .subscribe((data: string) => {
       let json = <any>data;
       if(json.authStatus === 'login-failed'){

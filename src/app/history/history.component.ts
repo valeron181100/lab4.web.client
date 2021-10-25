@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { DataService } from '../data.service';
 import { MessageService } from 'primeng/api';
 import { CookieService } from "ngx-cookie-service";
+import { NetworkService } from '../network.service';
 
 @Component({
   selector: 'app-history',
@@ -13,14 +14,12 @@ import { CookieService } from "ngx-cookie-service";
 export class HistoryComponent implements OnInit {
   resultPoints: ResultPoint[];
 
-  constructor(private http: HttpClient, private dataService: DataService, private messageService: MessageService) { 
+  constructor(private http: HttpClient, private dataService: DataService, private messageService: MessageService, private networkService: NetworkService) { 
     this.resultPoints = [];
   }
 
   ngOnInit() {
-    this.http.get(
-      this.dataService.serverRootUrl + "history/" + this.dataService.getUserId()       
-    ).subscribe(
+    this.networkService.listHistory(this.dataService.getUserId()).subscribe(
       (data: any) => {
         this.resultPoints = (<ResultPoint[]> data).reverse();
       },

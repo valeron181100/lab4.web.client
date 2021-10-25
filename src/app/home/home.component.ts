@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, FormControl, Validators, ControlContainer, Form
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DataService } from '../data.service';
 import { CookieService } from "ngx-cookie-service";
+import { NetworkService } from '../network.service';
 
 @Component({
   selector: 'app-home',
@@ -36,7 +37,8 @@ export class HomeComponent implements OnInit {
   chartHeight: number = this.chartWidth;
   rCoefficient: number = 0.4;
 
-  constructor(private messageService: MessageService, private fb: FormBuilder, private http: HttpClient, private dataService: DataService) { 
+  constructor(private messageService: MessageService,
+      private networkService: NetworkService, private fb: FormBuilder, private http: HttpClient, private dataService: DataService) { 
     this.userform = this.fb.group({
       'yinput': new FormControl('', Validators.compose([
           Validators.pattern('^(((\-[0-4])|[0-2])([\\.|\\,][0-9]+)?)$'),
@@ -48,10 +50,8 @@ export class HomeComponent implements OnInit {
 
 
   onSubmitButtonClick(){
-    this.http.post(
-      this.dataService.serverRootUrl + "history/c",
-      {headers: new HttpHeaders({ timeout: `${5000}` }), userId: this.dataService.getUserId(), r: this.rCoord, x: this.xCoord, y: this.yCoord}          
-    ).subscribe(
+    this.networkService.postPoint(this.dataService.getUserId(), this.xCoord, this.yCoord, this.rCoord)
+    .subscribe(
       (data: string) => {
         let json = <any>data;
         if(json.response === 'ok'){
@@ -67,10 +67,7 @@ export class HomeComponent implements OnInit {
   }
 
   clearHistory(){
-    this.http.post(
-      this.dataService.serverRootUrl + "history/clear/" + this.dataService.getUserId(),
-     {}
-    ).subscribe(
+    this.networkService.clearHistory(this.dataService.getUserId()).subscribe(
       (data: any) => {
         if(data.response === 'OK'){
           this.makeSuccessToast('История была очищена');
