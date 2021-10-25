@@ -25,14 +25,14 @@ export class AuthComponent implements OnInit {
               private networkService: NetworkService,
               private dataService: DataService, private router: Router, private cookieService: CookieService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (this.dataService.getIsLoggedInBoolean()) {
       this.router.navigate(['home']);
     }
   }
 
 
-  onLoginClick(event){
+  onLoginClick(event: any): void{
     this.dataService.turnOnSpinner();
     this.networkService.login(this.username, this.clientSidePasswordPart + this.password)
     .subscribe((data: string) => {
@@ -62,7 +62,7 @@ export class AuthComponent implements OnInit {
       ()=>this.dataService.turnOffSpinner());
   }
 
-  show() {
+  show(): void {
     const ref = this.dialogService.open(RegDialogComponent, {
         header: 'Зарегистрироваться',
         width: '70%',
@@ -84,11 +84,11 @@ export class AuthComponent implements OnInit {
   });
   }
   
-  makeErrorToast(topic: string, text: string){
+  makeErrorToast(topic: string, text: string): void {
     this.messageService.add({severity:'error', summary:topic, detail: text});
   }
 
-  makeSuccessToast(topic: string, text: string){
+  makeSuccessToast(topic: string, text: string): void {
     this.messageService.add({severity:'success', summary: topic, detail: text});
   }
 

@@ -23,10 +23,10 @@ export class RegDialogComponent implements OnInit {
   constructor(public ref: DynamicDialogRef, public config: DynamicDialogConfig, public http: HttpClient, 
     private dataService: DataService, private messageService: MessageService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 
-  onReg(event){
+  onReg(event: any): void {
     this.dataService.turnOnSpinner();
     this.http.post(this.dataService.serverRootUrl + "auth/c", 
     {username: this.username, password: this.clientSidePasswordPart + this.password})
@@ -41,18 +41,18 @@ export class RegDialogComponent implements OnInit {
     ()=> this.dataService.turnOffSpinner());
   }
 
-  onLoginInput(event){
+  onLoginInput(event: any): void {
     this.http.get(this.dataService.serverRootUrl + "auth/exists?username="+this.username)
     .subscribe((data: string) => {
       this.isUserNameExists = (<any>data).response;
     });
   }
 
-  makeErrorToast(topic: string, text: string){
+  makeErrorToast(topic: string, text: string): void {
     this.messageService.add({severity:'error', summary:topic, detail: text});
   }
 
-  makeSuccessToast(topic: string, text: string){
+  makeSuccessToast(topic: string, text: string): void {
     this.messageService.add({severity:'success', summary: topic, detail: text});
   }
 

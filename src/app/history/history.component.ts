@@ -18,7 +18,7 @@ export class HistoryComponent implements OnInit {
     this.resultPoints = [];
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.networkService.listHistory(this.dataService.getUserId()).subscribe(
       (data: any) => {
         this.resultPoints = (<ResultPoint[]> data).reverse();
@@ -27,14 +27,15 @@ export class HistoryComponent implements OnInit {
     );
   }
 
-  makeErrorToast(text: string){
+  makeErrorToast(text: string): void {
     this.messageService.add({severity:'error', summary:'Ошибка', detail: text});
   }
-  makeSuccessToast(text: string){
+
+  makeSuccessToast(text: string): void {
     this.messageService.add({severity:'success', summary:'Сделано', detail: text});
   }
-
 }
+
 export interface  ResultPoint{
   x;
   y;

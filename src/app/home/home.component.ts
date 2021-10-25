@@ -49,7 +49,7 @@ export class HomeComponent implements OnInit {
   }
 
 
-  onSubmitButtonClick(){
+  onSubmitButtonClick(): void {
     this.networkService.postPoint(this.dataService.getUserId(), this.xCoord, this.yCoord, this.rCoord)
     .subscribe(
       (data: string) => {
@@ -66,7 +66,7 @@ export class HomeComponent implements OnInit {
     );
   }
 
-  clearHistory(){
+  clearHistory(): void {
     this.networkService.clearHistory(this.dataService.getUserId()).subscribe(
       (data: any) => {
         if(data.response === 'OK'){
@@ -80,7 +80,7 @@ export class HomeComponent implements OnInit {
     );
   }
 
-  changeGraph(){
+  changeGraph(): void {
     let graphImage = $("#task-graph")[0];
     if(this.rCoord >= 0){
       graphImage.src = "./assets/images/graph-positive-r.png";
@@ -89,14 +89,14 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  makeErrorToast(text: string){
+  makeErrorToast(text: string): void {
     this.messageService.add({severity:'error', summary:'Ошибка', detail: text});
   }
-  makeSuccessToast(text: string){
+  makeSuccessToast(text: string): void {
     this.messageService.add({severity:'success', summary:'Сделано', detail: text});
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     var self = this;
     let canvas = $("#task-chart")[0];
     canvas.width = canvas.offsetWidth;
@@ -105,7 +105,7 @@ export class HomeComponent implements OnInit {
     this.chartHeight = this.chartWidth;
     this.draw();
 
-    window.onresize = (event)=>{
+    window.onresize = (event: any)=>{
         canvas.width = canvas.offsetWidth;
         canvas.height = canvas.width;
         this.chartWidth = canvas.offsetWidth;
@@ -114,14 +114,14 @@ export class HomeComponent implements OnInit {
     };
   }
 
-  draw() {
+  draw(): void {
     let canvas = $("#task-chart")[0];
     this.drawAxises(canvas);
     this.drawAxisesSigns(canvas);
     this.drawPointsSigns(canvas, this.rCoord);
   }
 
-  drawAxises(canvas) {
+  drawAxises(canvas): void {
     let context = canvas.getContext("2d");
 
     context.beginPath();
@@ -170,7 +170,7 @@ export class HomeComponent implements OnInit {
     context.stroke();
   }
 
-  drawAxisesSigns(canvas) {
+  drawAxisesSigns(canvas): void {
     let context = canvas.getContext("2d");
     context.font = this.signsFont;
     context.fillStyle = this.signsColor;
@@ -179,7 +179,7 @@ export class HomeComponent implements OnInit {
     context.fillText("X", canvas.width - this.signSpace, canvas.height / 2 - this.signSpace / 2);
   }
 
-  drawPointsSigns(canvas, r) {
+  drawPointsSigns(canvas: any, r: number): void {
     let context = canvas.getContext("2d");
     context.font = this.signsFont;
     context.fillStyle = this.signsColor;
@@ -213,7 +213,7 @@ export class HomeComponent implements OnInit {
     context.fillText(sign, canvas.width / 2 + this.signSpace / 2, canvas.height * 0.1 + this.signSpace / 2);
   }
 
-  drawPoint(canvas, x, y, pointColor) {
+  drawPoint(canvas: any, x: number, y: string, pointColor: string): void {
     let context = canvas.getContext("2d");
     context.beginPath();
     context.strokeStyle = pointColor;
@@ -225,7 +225,7 @@ export class HomeComponent implements OnInit {
     context.stroke();
   }
 
-  click(event) {
+  click(event: any): void {
     this.R = this.rCoord;
     let canvas = event.target;
     let originalX = event.pageX - canvas.offsetLeft;
@@ -260,14 +260,14 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  redrawAxises(){
+  redrawAxises(): void {
     let canvas = $("#task-chart")[0];
     canvas.getContext('2d').clearRect(0, 0, $("#task-chart")[0].width, $("#task-chart")[0].height);
     this.draw();
     this.redraw();
   }
 
-  redraw(){
+  redraw(): void {
     console.log('HOME-COMPONENT: redrawing points');
     this.http.get(
       this.dataService.serverRootUrl + "history/" + this.dataService.getUserId()       
@@ -277,12 +277,12 @@ export class HomeComponent implements OnInit {
         JSON.parse(JSON.stringify(data)).forEach((p, i)=>{
           if(p.r == this.rCoord){
             if(p.entered){
-                this.drawPoint($('#task-chart')[0], this.toOriginalX(p.x, this.rCoord), this.toOriginalY(p.y, this.rCoord), "green");
+                this.drawPoint($('#task-chart')[0], this.toOriginalX(p.x, this.rCoord), this.toOriginalY(p.y, this.rCoord).toString(), "green");
             }else{
-              this.drawPoint($('#task-chart')[0], this.toOriginalX(p.x, this.rCoord), this.toOriginalY(p.y, this.rCoord), "red");
+              this.drawPoint($('#task-chart')[0], this.toOriginalX(p.x, this.rCoord), this.toOriginalY(p.y, this.rCoord).toString(), "red");
             }
           }else{
-            this.drawPoint($('#task-chart')[0], this.toOriginalX(p.x, this.rCoord), this.toOriginalY(p.y, this.rCoord), "black");
+            this.drawPoint($('#task-chart')[0], this.toOriginalX(p.x, this.rCoord), this.toOriginalY(p.y, this.rCoord).toString(), "black");
           }
         });
         
@@ -291,7 +291,7 @@ export class HomeComponent implements OnInit {
     );
   }
 
-  toOriginalX(computingX, R) {
+  toOriginalX(computingX: number, R: number): number {
     let X = computingX / R;
     X *= this.rCoefficient * this.chartWidth;
     X += this.chartWidth / 2;
@@ -299,7 +299,7 @@ export class HomeComponent implements OnInit {
     return X;
   }
 
-  toOriginalY(computingY, R) {
+  toOriginalY(computingY: number, R: number): number {
       let Y = computingY / R;
       Y *= this.rCoefficient * this.chartHeight;
       Y = -Y + this.chartHeight / 2;
@@ -307,7 +307,7 @@ export class HomeComponent implements OnInit {
       return Y;
   }
 
-  toComputingX(originalX, R) {
+  toComputingX(originalX: number, R: number): number {
       let X = originalX - this.chartWidth / 2;
       X /= this.rCoefficient * this.chartWidth;
       X *= R;
@@ -315,7 +315,7 @@ export class HomeComponent implements OnInit {
       return X;
   }
 
-  toComputingY(originalY, R) {
+  toComputingY(originalY: number, R: number): number {
       let Y = -originalY + this.chartHeight / 2;
       Y /= this.rCoefficient * this.chartHeight;
       Y *= R;
